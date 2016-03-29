@@ -1,0 +1,16 @@
+{
+  "name": "analytics",
+  "version": "1.0.0",
+  "description": "Google Analytics for a NodeJS API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lars de Bruijn",
+  "license": "ISC",
+  "dependencies": {
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "url": "^0.11.0"
+  }
+}
