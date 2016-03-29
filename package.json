@@ -1,5 +1,5 @@
 {
-  "name": "API-GAnalytics",
+  "name": "api-ganalytics",
   "version": "1.0.0",
   "description": "Google Analytics for a NodeJS API.",
   "main": "index.js",
