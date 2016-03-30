@@ -17,7 +17,7 @@ var Analytics = require('api-ganalytics');
 
 var app = express();
 
-app.use(Analytics('YOUR GOOGLE ANALYTICS TRACKING ID HERE'));
+app.use(Analytics('{YOUR_GOOGLE_ANALYTICS_TRACKING_ID}'));
 
 app.get('/', function(req, res) {
   res.send('Hello API-GAnalytics');
