@@ -11,7 +11,7 @@ The module is based on the workings of [Nodalytics](https://github.com/tjanczuk/
 
 `$ npm install api-ganalytics`
 
-# Express example
+### Express example
 
 ```js
 var express = require('express');
@@ -26,3 +26,7 @@ app.get('/', function(req, res) {
 });
 
 app.listen(3000);
+
+
+
+## License
