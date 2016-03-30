@@ -4,7 +4,7 @@
   "description": "Google Analytics for a NodeJS API.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"TODO: Write tests\""
   },
   "author": "Lars de Bruijn",
   "license": "ISC",
