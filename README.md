@@ -19,8 +19,9 @@ var Analytics = require('api-ganalytics');
 
 var app = express();
 
-app.get('/', function(req, res) {
+app.get('/', function(req, res, next) {
   res.send('Hello API-GAnalytics');
+  next(); // <-- very important!
 });
 
 app.use(Analytics('{YOUR_GOOGLE_ANALYTICS_TRACKING_ID}')); // <-- Below the routes!
@@ -33,6 +34,8 @@ app.listen(3000);
 The palcement of `app.use(Analytics('{YOUR_GOOGLE_ANALYTICS_TRACKING_ID}'));` is critical for the availability of some features.
 For example, the pageview `path` property is only available after parsing of the request object, which is right after all custom middleware.
 Therefor, `app.use(Analytics('{YOUR_GOOGLE_ANALYTICS_TRACKING_ID}'));` must be placed **BELOW** the route decleration.
+
+!!! Be sure to call `next();` on your routes in order to allow the execution of the middleware !!!
 
 ### options
 
