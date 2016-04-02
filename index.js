@@ -1,36 +1,53 @@
 'use strict';
-
-var https = require('https');
 var url = require('url');
-var Event = require('./lib/Event');
+var https = require('https');
 
-var Analytics = function(preferences) {
-    var options = preferences || {};
+var Event = require('./lib/event');
+var PageView = require('./lib/pageview');
+var Client = require('./lib/client');
+var Utils = require('./lib/utils');
 
-    if (typeof(options) === 'string') {
-        options = {};
-        options.trackingId = preferences;
-    }
+var endpoint = '/collect';
+var DEBUG = false;
+
+var Analytics = function(trackingId, options) {
+    var options = options || {};
+    options.trackingId = trackingId;
+    DEBUG = options.debug || false;
 
     if (typeof(options) !== 'object' || typeof(options.trackingId) !== 'string') {
         throw new Error('Google analytics tracking ID must be given as a parameter.');
     }
 
     options.clientId = options.clientId || 'sessionID';
+    setupDebugging(options);
 
     return function(req, res, next) {
         var parsedUrl = url.parse(req.url);
+        var headers = createHeaders(req);
 
-        var event = new Event(options)
-            .setVersion(options.version)
-            .setClientId(req[options.clientId])
+        var client = new Client(options)
+            .setClientID(req, options.clientId)
+            .setClientIP(req.ip);
+
+        var cPayload = Utils.toUrlFormEncodedString(client);
+
+        var event = new Event()
             .setEventAction(req.method)
             .setEventCategory(parsedUrl.pathname)
-            .setEventLabel(parsedUrl.query)
-            .setHitType('event');
+            .setEventLabel(parsedUrl.query);
 
-        var payload = event.toFormUrlEncodedString();
-        var headers = createHeaders(req);
+        var ePayload = Utils.toUrlFormEncodedString(event);
+        var payload = Utils.combineUrlEncodedStrings(cPayload, ePayload);
+
+        sendRequest(payload, headers);
+
+        var pageview = new PageView(options)
+            .setHostname(req.hostname)
+            .setPath(req.route.path, req.query);
+
+        var pPayload = Utils.toUrlFormEncodedString(pageview);
+        payload = Utils.combineUrlEncodedStrings(cPayload, pPayload);
 
         sendRequest(payload, headers);
 
@@ -42,12 +59,18 @@ function sendRequest(payload, headers) {
     var request = https.request({
         hostname : 'www.google-analytics.com',
         port : 443,
-        path : '/collect',
+        path : endpoint,
         method : 'POST',
         headers : headers
+    }, function(err, response) {
+        if (DEBUG) {
+            if (err) {
+                console.log('Error from response', err);
+            }
+        }
     });
 
-    request.on('error', function(e){ /*console.log(e, e.message)*/ });
+    request.on('error', function(e){ if (DEBUG) { console.log('Error in request', e) } });
     request.write(payload);
     request.end();
 }
@@ -70,5 +93,10 @@ function createHeaders(req) {
     return headers;
 }
 
+function setupDebugging(options) {
+    if (options.debug === true) {
+        endpoint = '/debug' + endpoint;
+    }
+}
 
 module.exports = Analytics;

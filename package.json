@@ -1,6 +1,6 @@
 {
   "name": "api-ganalytics",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Google Analytics for a NodeJS API.",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,6 @@
   "author": "Lars de Bruijn",
   "license": "MIT",
   "dependencies": {
-    "https": "^1.0.0",
-    "url": "^0.11.0"
   },
   "repository": {
     "type": "git",
