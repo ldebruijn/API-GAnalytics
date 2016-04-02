@@ -62,11 +62,12 @@ function sendRequest(payload, headers) {
         path : endpoint,
         method : 'POST',
         headers : headers
-    }, function(err, response) {
+    }, function(response) {
         if (DEBUG) {
-            if (err) {
-                console.log('Error from response', err);
-            }
+            response.setEncoding('utf8');
+            response.on('data', function(data) {
+                console.log('response=', data);
+            })
         }
     });
 

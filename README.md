@@ -28,6 +28,38 @@ app.get('/', function(req, res) {
 app.listen(3000);
 ```
 
+### options
+
+The API-GAnalytics middleware accepts a dictionary of options allowing you to modify the inner workings.
+This section explains the individual options and their effects.
+```js
+var options = {
+    clientId : [ 'user', 'id'],
+    debug : false
+};
+```
+
+#### clientId
+ClientId is either a `string` or an `array` of object keys which will be used to fetch a clientId from the request object.
+In this case, the `request` object contains a `user` object which has a field `id`. A visual representation would look like this:
+```js
+var request = {
+    // ...
+    user : {
+        id : 1,
+        name : 'API-GAnalytics'
+        // ...
+    }
+    // ...
+}
+```
+
+The clientId will be used to traverse the request object until a destionation is reached.
+
+#### debug
+Debug will put the module in debug mode. This means additional output where necessary and that the requests towards the Google
+Analytics server will be redirected to their `/debug` endpoint. This allows for checking if the request sent is valid.
+By default, debug is `false`.
 
 ## License
 
