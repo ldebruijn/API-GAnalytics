@@ -16,8 +16,6 @@ The module also gathers as much data as possible to give meaningful insights. It
 * [IP Override](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#uip)
 * [User Language](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ul)
 
-The module is based on the workings of [Nodalytics](https://github.com/tjanczuk/nodalytics), but plans are to improve functionality.
-
 ## Installation
 
 `$ npm install api-ganalytics`
@@ -35,16 +33,16 @@ app.get('/', function(req, res, next) {
   next(); // <-- very important!
 });
 
-app.use(Analytics('{YOUR_GOOGLE_ANALYTICS_TRACKING_ID}')); // <-- Below the routes!
+app.use(Analytics('UA-XXXXXXXX-1')); // <-- Below the routes!
 
 app.listen(3000);
 ```
 
 ### Placement
 
-The palcement of `app.use(Analytics('{YOUR_GOOGLE_ANALYTICS_TRACKING_ID}'));` is critical for the availability of some features.
+The palcement of `app.use(Analytics('UA-XXXXXXXX-1'));` is critical for the availability of some features.
 For example, the pageview `path` property is only available after parsing of the request object, which is right after all custom middleware.
-Therefor, `app.use(Analytics('{YOUR_GOOGLE_ANALYTICS_TRACKING_ID}'));` must be placed **BELOW** the route decleration.
+Therefor, `app.use(Analytics('UA-XXXXXXXX-1'));` must be placed **BELOW** the route decleration.
 
 !!! Be sure to call `next();` on your routes in order to allow the execution of the middleware !!!
 
