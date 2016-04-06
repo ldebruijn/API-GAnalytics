@@ -3,7 +3,18 @@
 
 > NodeJS API analytics using Google Analytics.
 
-This module is Express middleware which utilizes the [Analytics Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide#overview) and sends statistics from incomming requests to Google Analytics enabling you to keep track of realtime events on your API.
+This module is Express middleware which utilizes the [Analytics Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide#overview)
+and sends statistics from incomming requests to Google Analytics.
+
+As of now, the supported actions are:
+* Events
+* Pageviews
+
+The module also gathers as much data as possible to give meaningful insights. It supports the following parameters:
+* [Client ID](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#cid)
+* [Data Source](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ds)
+* [IP Override](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#uip)
+* [User Language](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ul)
 
 The module is based on the workings of [Nodalytics](https://github.com/tjanczuk/nodalytics), but plans are to improve functionality.
 
@@ -43,10 +54,16 @@ The API-GAnalytics middleware accepts a dictionary of options allowing you to mo
 This section explains the individual options and their effects.
 ```js
 var options = {
+    hostname : 'API-Ganalytics',
     clientId : [ 'user', 'id'],
+    locale : [ 'user', 'locale'],
     debug : false
 };
 ```
+
+### hostname
+The hostname will be used to set the `Data Source` property of the action. Originally, this is `web` for websites and `app` for
+mobile applications. If this property is not set, it will default to `API`.
 
 #### clientId
 ClientId is either a `string` or an `array` of object keys which will be used to fetch a clientId from the request object.
@@ -64,6 +81,10 @@ var request = {
 ```
 
 The clientId will be used to traverse the request object until a destionation is reached.
+
+### locale
+Like the clientId, the locale option either is a `string` or an `array` of object keys which will be used to fetch a locale/language setting
+from the request object.
 
 #### debug
 Debug will put the module in debug mode. This means additional output where necessary and that the requests towards the Google

@@ -28,7 +28,8 @@ var Analytics = function(trackingId, options) {
 
         var client = new Client(options)
             .setClientID(req, options.clientId)
-            .setClientIP(req.ip);
+            .setClientIP(req.ip)
+            .setLanguage(req, options.locale);
 
         var cPayload = Utils.toUrlFormEncodedString(client);
 
