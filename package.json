@@ -1,6 +1,6 @@
 {
   "name": "api-ganalytics",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Google Analytics for a NodeJS API.",
   "main": "index.js",
   "scripts": {
