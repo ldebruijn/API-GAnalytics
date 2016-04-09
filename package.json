@@ -3,15 +3,23 @@
   "version": "1.1.2",
   "description": "Google Analytics for a NodeJS API.",
   "main": "index.js",
+  "tags" : ["google", "analytics", "node.js", "http", "server", "web", "api", "rest", "express", "measurement", "protocol"],
   "scripts": {
     "test": "echo \"TODO: Write tests\""
   },
-  "author": "Lars de Bruijn",
+  "author": {
+    "name" : "Lars de Bruijn",
+    "url" : "https://github.com/ldebruijn"
+  },
   "license": "MIT",
   "dependencies": {
   },
+  "homepage" : "https://github.com/ldebruijn/API-GAnalytics.git",
   "repository": {
     "type": "git",
     "url": "https://github.com/ldebruijn/API-GAnalytics.git"
+  },
+  "bugs" : {
+    "url" : "https://github.com/ldebruijn/API-GAnalytics.git"
   }
 }
