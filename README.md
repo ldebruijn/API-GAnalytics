@@ -33,7 +33,14 @@ app.get('/', function(req, res, next) {
   next(); // <-- very important!
 });
 
-app.use(Analytics('UA-XXXXXXXX-1')); // <-- Below the routes!
+var options = {
+    hostname : 'API-Ganalytics',
+    clientId : [ 'user', 'id'],
+    locale : [ 'user', 'locale'],
+    debug : false
+};
+
+app.use(Analytics('UA-XXXXXXXX-1', options)); // <-- Below the routes!
 
 app.listen(3000);
 ```
@@ -93,7 +100,7 @@ By default, debug is `false`.
 
 MIT License
 
-Copyright (c) 2016 L. de Bruijn
+Copyright (c) 2016 Lars de Bruijn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
