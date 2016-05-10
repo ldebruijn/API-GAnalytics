@@ -15,6 +15,7 @@ The module also gathers as much data as possible to give meaningful insights. It
 * [Data Source](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ds)
 * [IP Override](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#uip)
 * [User Language](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ul)
+* [User Agent](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ua)
 
 ## Installation
 
