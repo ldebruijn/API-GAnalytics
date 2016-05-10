@@ -1,11 +1,11 @@
 'use strict';
-var url = require('url');
-var https = require('https');
+const url = require('url');
+const https = require('https');
 
-var Event = require('./lib/event');
-var PageView = require('./lib/pageview');
-var Client = require('./lib/client');
-var Utils = require('./lib/utils');
+const Event = require('./lib/event');
+const PageView = require('./lib/pageview');
+const Client = require('./lib/client');
+const Utils = require('./lib/utils');
 
 var endpoint = '/collect';
 var DEBUG = false;
@@ -29,7 +29,8 @@ var Analytics = function(trackingId, options) {
         var client = new Client(options)
             .setClientID(req, options.clientId)
             .setClientIP(req.ip)
-            .setLanguage(req, options.locale);
+            .setLanguage(req, options.locale)
+            .setUserAgent(req.headers['user-agent']);
 
         var cPayload = Utils.toUrlFormEncodedString(client);
 
@@ -43,9 +44,9 @@ var Analytics = function(trackingId, options) {
 
         sendRequest(payload, headers);
 
-        var pageview = new PageView(options)
+        var pageview = new PageView(options, req)
             .setHostname(req.hostname)
-            .setPath(req.route.path, req.query);
+            
 
         var pPayload = Utils.toUrlFormEncodedString(pageview);
         payload = Utils.combineUrlEncodedStrings(cPayload, pPayload);
