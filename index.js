@@ -37,7 +37,8 @@ var Analytics = function(trackingId, options) {
         var event = new Event()
             .setEventAction(req.method)
             .setEventCategory(parsedUrl.pathname)
-            .setEventLabel(parsedUrl.query);
+            .setEventLabel(res.statusCode)
+            .setEventValue(parsedUrl.query);
 
         var ePayload = Utils.toUrlFormEncodedString(event);
         var payload = Utils.combineUrlEncodedStrings(cPayload, ePayload);
@@ -45,7 +46,7 @@ var Analytics = function(trackingId, options) {
         sendRequest(payload, headers);
 
         var pageview = new PageView(options, req)
-            .setHostname(req.hostname)
+            .setHostname(req.hostname);
             
 
         var pPayload = Utils.toUrlFormEncodedString(pageview);
