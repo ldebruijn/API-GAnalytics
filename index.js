@@ -37,8 +37,7 @@ var Analytics = function(trackingId, options) {
         var event = new Event()
             .setEventAction(req.method)
             .setEventCategory(parsedUrl.pathname)
-            .setEventLabel(parsedUrl.query)
-            .setEventValue(res.statusCode);
+            .setEventLabel(res.statusCode);
 
         var ePayload = Utils.toUrlFormEncodedString(event);
         var payload = Utils.combineUrlEncodedStrings(cPayload, ePayload);
