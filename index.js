@@ -6,9 +6,40 @@ const Event = require('./lib/event');
 const PageView = require('./lib/pageview');
 const Client = require('./lib/client');
 const Utils = require('./lib/utils');
+const ENV = process.env.NODE_ENV;
+const _ = require('lodash');
+
 
 var endpoint = '/collect';
 var DEBUG = false;
+
+module.exports = function(trackingId, options) {
+    // set up options
+    let options = options || {};
+
+    if (!_.isString(trackingId)) {
+        throw new Error('Google Analytics Tracking ID must be of type string.');
+    }
+
+    options.clientId = options.clientId || undefined;
+    options.debug = options.debug || false;
+
+    // build client
+    const client = new Client(trackingId)
+        .setClientId(req, options.clientId)
+        .setClientIP(req.ip)
+        .setLanguage(req, options.locale)
+        .setUserAgent(req.headers['user-agent']);
+
+
+    //return middleware
+
+    // build event
+    // build pageview
+
+    // execute request
+};
+
 
 var Analytics = function(trackingId, options) {
     var options = options || {};

@@ -1,25 +1,41 @@
 {
   "name": "api-ganalytics",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Google Analytics for a NodeJS API.",
   "main": "index.js",
-  "keywords" : ["google", "analytics", "node.js", "http", "server", "web", "api", "rest", "express", "measurement", "protocol"],
+  "keywords": [
+    "google",
+    "analytics",
+    "node.js",
+    "http",
+    "server",
+    "web",
+    "api",
+    "rest",
+    "express",
+    "measurement",
+    "protocol"
+  ],
   "scripts": {
     "test": "echo \"TODO: Write tests\""
   },
   "author": {
-    "name" : "Lars de Bruijn",
-    "url" : "https://github.com/ldebruijn"
+    "name": "Lars de Bruijn",
+    "url": "https://github.com/ldebruijn"
   },
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.13.1"
   },
-  "homepage" : "https://github.com/ldebruijn/API-GAnalytics.git",
+  "devDependencies": {
+    "should": "^9.0.0"
+  },
+  "homepage": "https://github.com/ldebruijn/API-GAnalytics.git",
   "repository": {
     "type": "git",
     "url": "https://github.com/ldebruijn/API-GAnalytics.git"
   },
-  "bugs" : {
-    "url" : "https://github.com/ldebruijn/API-GAnalytics.git"
+  "bugs": {
+    "url": "https://github.com/ldebruijn/API-GAnalytics.git"
   }
 }
