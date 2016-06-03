@@ -2,7 +2,7 @@
   "name": "api-ganalytics",
   "version": "1.2.2",
   "description": "Google Analytics for a NodeJS API.",
-  "main": "index.js",
+  "main": "start.js",
   "keywords": [
     "google",
     "analytics",
