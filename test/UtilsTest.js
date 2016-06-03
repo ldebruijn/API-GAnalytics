@@ -1,6 +1,7 @@
 'use strict';
 
 const Utils = require('../lib/utils');
+const _ = require('lodash');
 
 describe('Utils test', function () {
 
@@ -13,6 +14,7 @@ describe('Utils test', function () {
         };
 
         let result = Utils.traverseObjectByArray(req, ['user', 'id']);
+        let res = _.get(req, ['user', 'id']);
         result.should.equal(1);
 
         done();
