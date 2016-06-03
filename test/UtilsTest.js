@@ -13,8 +13,7 @@ describe('Utils test', function () {
            headers : {}
         };
 
-        let result = Utils.traverseObjectByArray(req, ['user', 'id']);
-        let res = _.get(req, ['user', 'id']);
+        let result = _.get(req, ['user', 'id']);
         result.should.equal(1);
 
         done();
