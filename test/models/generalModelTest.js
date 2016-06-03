@@ -1,5 +1,5 @@
 'use strict';
-const General = require('../lib/models/general');
+const General = require('../../lib/models/general');
 const should = require('should');
 
 describe('General model', function() {
