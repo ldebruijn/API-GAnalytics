@@ -35,7 +35,7 @@ describe('Event model', function() {
     });
 
     describe('Event Category', function() {
-
+        
         
     });
 
