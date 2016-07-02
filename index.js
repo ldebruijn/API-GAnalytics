@@ -31,7 +31,7 @@ module.exports = function(trackingId, options) {
             .setPageview(pageview)
             .setException(exception);
 
-        let request = new Request(requestBody);
+        let request = new Request(requestBody, options.debug);
         request.send();
         
         next(err);
