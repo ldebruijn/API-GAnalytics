@@ -4,11 +4,12 @@
 > NodeJS API analytics using Google Analytics.
 
 This module is Express middleware which utilizes the [Analytics Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide#overview)
-and sends statistics from incomming requests to Google Analytics.
+and sends statistics from received requests to Google Analytics.
 
 As of now, the supported actions are:
 * Events
 * Pageviews
+* Exceptions
 
 The module also gathers as much data as possible to give meaningful insights. It supports the following parameters:
 * [Client ID](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#cid)
@@ -17,6 +18,7 @@ The module also gathers as much data as possible to give meaningful insights. It
 * [IP Override](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#uip)
 * [User Language](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ul)
 * [User Agent](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#ua)
+* [Exceptions](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#exception)
 
 ## Installation
 
@@ -46,6 +48,11 @@ app.use(Analytics('UA-XXXXXXXX-1', options)); // <-- Below the routes!
 
 app.listen(3000);
 ```
+
+### Errors
+As of version 2.1.0 API-GAnalytics supports the tracking of exceptions. Whenever an exception is passed to `next(err);`, the module will
+use the properties of that exception to send an Exception hit type. There is unfortunately no Exception dashboard, to set one up take a look
+[at this Stackoverflow answer](http://stackoverflow.com/questions/21718481/report-for-exceptions-from-google-analytics-analytics-js-exception-tracking)
 
 ### Placement
 
