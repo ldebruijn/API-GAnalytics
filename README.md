@@ -55,6 +55,13 @@ Therefor, `app.use(Analytics('UA-XXXXXXXX-1'));` must be placed **BELOW** the ro
 
 !!! Be sure to call `next();` on your routes in order to allow the execution of the middleware !!!
 
+
+### Environment options
+The module only hits the Google Analytics server when the environment variable `NODE_ENV` is set to `production`.
+If the `NODE_ENV` environment variable is unset or equals anything other than `production` it will not fire any requests.
+The exception to this is when `debug` is set to `true` in the options object. In that case the module will hit the debug endpoint and
+output it's results.
+
 ### options
 
 The API-GAnalytics middleware accepts a dictionary of options allowing you to modify the inner workings.
