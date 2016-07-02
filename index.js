@@ -15,15 +15,12 @@ module.exports = function(trackingId, options) {
     }
 
     options = options || {};
-    options.userId = options.userId || 1;
+    options.userId = options.userId || [];
     options.debug = options.debug || false;
 
     const general = new General(trackingId, options);
 
     return (err, req, res, next) => {
-        if (err) {
-            console.log('Error received!', err);
-        }
         let session = new Session(req, options);
         let event = new Event(req, res);
         let pageview = new Pageview(req);
