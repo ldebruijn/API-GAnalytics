@@ -21,12 +21,12 @@ describe('Session model', function() {
                 }
             };
 
-            session.setClientId(req, ['user', 'id']);
+            session.setUserId(req, ['user', 'id']);
             session.cid.should.equal(1);
 
             req.user.id = 'pseudo-uuid-1o23qijdfo9920';
 
-            session.setClientId(req, ['user', 'id']);
+            session.setUserId(req, ['user', 'id']);
             session.cid.should.equal('pseudo-uuid-1o23qijdfo9920');
 
             done();
@@ -39,22 +39,22 @@ describe('Session model', function() {
                 }
             };
 
-            session.setClientId(req, ['user', 'id']);
+            session.setUserId(req, ['user', 'id']);
             should.not.exist(session.cid);
 
             req.user.id = null;
 
-            session.setClientId(req, ['user', 'id']);
+            session.setUserId(req, ['user', 'id']);
             should.not.exist(session.cid);
 
             req.user.id = undefined;
 
-            session.setClientId(req, ['user', 'id']);
+            session.setUserId(req, ['user', 'id']);
             should.not.exist(session.cid);
 
             req.user.id = new Date();
 
-            session.setClientId(req, ['user', 'id']);
+            session.setUserId(req, ['user', 'id']);
             should.not.exist(session.cid);
 
             done();
