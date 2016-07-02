@@ -14,7 +14,52 @@ describe('Session model', function() {
 
     describe('Client ID', function() {
 
-        it('Should allow either integer or string values', function(done) {
+        it('Should allow integer values and return a UUID', function(done) {
+            let req = {
+                user : {
+                    id : 1
+                }
+            };
+
+            session.setClientId(req, ['user', 'id']);
+            session.cid.should.equal('13816710-1dd2-11b2-8000-0123456789ab');
+
+            done();
+        });
+
+        it('Should not allow any non-integer or non-string values', function(done) {
+            let req = {
+                user : {
+                    id : {}
+                }
+            };
+
+            session.setUserId(req, ['user', 'id']);
+            should.not.exist(session.cid);
+
+            req.user.id = null;
+
+            session.setUserId(req, ['user', 'id']);
+            should.not.exist(session.cid);
+
+            req.user.id = undefined;
+
+            session.setUserId(req, ['user', 'id']);
+            should.not.exist(session.cid);
+
+            req.user.id = new Date();
+
+            session.setUserId(req, ['user', 'id']);
+            should.not.exist(session.cid);
+
+            done();
+        });
+
+    })
+
+    describe('User ID', function() {
+
+        it('Should allow integer values', function(done) {
             let req = {
                 user : {
                     id : 1
@@ -22,12 +67,7 @@ describe('Session model', function() {
             };
 
             session.setUserId(req, ['user', 'id']);
-            session.cid.should.equal(1);
-
-            req.user.id = 'pseudo-uuid-1o23qijdfo9920';
-
-            session.setUserId(req, ['user', 'id']);
-            session.cid.should.equal('pseudo-uuid-1o23qijdfo9920');
+            session.uid.should.equal(1);
 
             done();
         });
@@ -153,14 +193,14 @@ describe('Session model', function() {
         };
 
         let options = {
-            clientId : ['user', 'id'],
+            userId : ['user', 'id'],
             locale : ['user', 'locale']
         };
 
         it('Should correctly set all properties from the constructor', function(done) {
             session = new Session(req, options);
 
-            session.cid.should.equal(1);
+            session.uid.should.equal(1);
             session.uip.should.equal('127.0.0.1');
             session.ul.should.equal('en_GB');
             session.ua.should.equal('Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14');
