@@ -20,20 +20,23 @@ module.exports = function(trackingId, options) {
 
     const general = new General(trackingId, options);
 
-    return (err, req, res, next) => {
+    return (req, res, next) => {
         let session = new Session(req, options);
         let event = new Event(req, res);
         let pageview = new Pageview(req);
-        let exception = new Exception(err);
+        // let exception = new Exception(err);
 
         let requestBody = new RequestBody(req, general, session)
             .setEvent(event)
-            .setPageview(pageview)
-            .setException(exception);
+            .setPageview(pageview);
+            // .setException(exception);
 
         let request = new Request(requestBody, options.debug);
         request.send();
         
-        next(err);
+        next();
     }
 };
+
+// @TODO: Error handling middleware.
+

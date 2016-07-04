@@ -49,11 +49,6 @@ app.use(Analytics('UA-XXXXXXXX-1', options)); // <-- Below the routes!
 app.listen(3000);
 ```
 
-### Errors
-As of version 2.1.0 API-GAnalytics supports the tracking of exceptions. Whenever an exception is passed to `next(err);`, the module will
-use the properties of that exception to send an Exception hit type. There is unfortunately no Exception dashboard, to set one up take a look
-[at this Stackoverflow answer](http://stackoverflow.com/questions/21718481/report-for-exceptions-from-google-analytics-analytics-js-exception-tracking)
-
 ### Placement
 
 The palcement of `app.use(Analytics('UA-XXXXXXXX-1'));` is critical for the availability of some features.
