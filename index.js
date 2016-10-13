@@ -37,7 +37,7 @@ module.exports.track = (req, res, next) => {
     request.send();
 
     next();
-}
+};
 
 module.exports.exception = (req, res, next, err) => {
     let session = new Session(req, options);
