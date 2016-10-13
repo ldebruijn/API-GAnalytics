@@ -32,11 +32,6 @@ var Analytics = require('api-ganalytics');
 
 var app = express();
 
-app.get('/', function(req, res, next) {
-  res.send('Hello API-GAnalytics');
-  next(); // <-- very important!
-});
-
 var options = {
     hostname : 'API-Ganalytics',
     userId : [ 'user', 'id'],
@@ -44,16 +39,27 @@ var options = {
     debug : false
 };
 
-app.use(Analytics('UA-XXXXXXXX-1', options)); // <-- Below the routes!
+Analytics('UA-XXXXXXXX-1', options)
+
+
+app.get('/', function(req, res, next) {
+  res.send('Hello API-GAnalytics');
+  next(); // <-- very important!
+});
+
+
+app.use(Analytics.track);
+app.use(Analytics.exceptions);
 
 app.listen(3000);
 ```
 
 ### Placement
 
-The palcement of `app.use(Analytics('UA-XXXXXXXX-1'));` is critical for the availability of some features.
+The palcement of the `app.use();` statements is critical for the availability of some features.
 For example, the pageview `path` property is only available after parsing of the request object, which is right after all custom middleware.
-Therefor, `app.use(Analytics('UA-XXXXXXXX-1'));` must be placed **BELOW** the route decleration.
+Therefor, all `app.use();` statements must be placed **BELOW** the route decleration.
+The initialization of the Analytics module can take place anywhere, as long as it happens before any features are used.
 
 !!! Be sure to call `next();` on your routes in order to allow the execution of the middleware !!!
 

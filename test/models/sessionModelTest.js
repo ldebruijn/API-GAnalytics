@@ -14,20 +14,20 @@ describe('Session model', function() {
 
     describe('Client ID', function() {
 
-        it('Should allow integer values and return a UUID', function(done) {
+        it('Should allow string values and return a UUID', function(done) {
             let req = {
                 user : {
-                    id : 1
+                    id : '1'
                 }
             };
 
             session.setClientId(req, ['user', 'id']);
-            session.cid.should.equal('13816710-1dd2-11b2-8000-0123456789ab');
+            session.cid.should.equal('1');
 
             done();
         });
 
-        it('Should not allow any non-integer or non-string values', function(done) {
+        it('Should not allow any non-string values', function(done) {
             let req = {
                 user : {
                     id : {}
@@ -59,15 +59,15 @@ describe('Session model', function() {
 
     describe('User ID', function() {
 
-        it('Should allow integer values', function(done) {
+        it('Should allow string values', function(done) {
             let req = {
                 user : {
-                    id : 1
+                    id : '1'
                 }
             };
 
             session.setUserId(req, ['user', 'id']);
-            session.uid.should.equal(1);
+            session.uid.should.equal('1');
 
             done();
         });
@@ -183,7 +183,7 @@ describe('Session model', function() {
     describe('Constructor', function() {
         let req = {
             user : {
-                id : 1,
+                id : '1',
                 locale : 'en_GB'
             },
             headers : {
@@ -200,7 +200,7 @@ describe('Session model', function() {
         it('Should correctly set all properties from the constructor', function(done) {
             session = new Session(req, options);
 
-            session.uid.should.equal(1);
+            session.uid.should.equal('1');
             session.uip.should.equal('127.0.0.1');
             session.ul.should.equal('en_GB');
             session.ua.should.equal('Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14');
