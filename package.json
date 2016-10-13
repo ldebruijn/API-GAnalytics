@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "mocha": "^3.1.2",
-    "should": "^9.0.0"
+    "should": "^11.0.0"
   },
   "homepage": "https://github.com/ldebruijn/API-GAnalytics.git",
   "repository": {
