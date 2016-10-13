@@ -39,7 +39,7 @@ module.exports.track = (req, res, next) => {
     next();
 };
 
-module.exports.exception = (req, res, next, err) => {
+module.exports.exception = (err, req, res, next) => {
     let session = new Session(req, options);
     let event = new Event(req, res);
     let pageview = new Pageview(req);
