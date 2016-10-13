@@ -9,63 +9,50 @@ const Exception = require('./lib/models/exception');
 const RequestBody = require('./lib/models/requestbody');
 const Request = require('./lib/request');
 
-module.exports = function(trackingId, options) {
+var general;
+var options;
+
+module.exports = function(trackingId, _options) {
     if (!_.isString(trackingId)) {
         throw new Error('Google Analytics Tracking ID must be a string');
     }
 
-    options = options || {};
+    options = _options || {};
     options.userId = options.userId || [];
     options.debug = options.debug || false;
 
-    const general = new General(trackingId, options);
-
-    return (req, res, next) => {
-        let session = new Session(req, options);
-        let event = new Event(req, res);
-        let pageview = new Pageview(req);
-        // let exception = new Exception(err);
-
-        let requestBody = new RequestBody(req, general, session)
-            .setEvent(event)
-            .setPageview(pageview);
-            // .setException(exception);
-
-        let request = new Request(requestBody, options.debug);
-        request.send();
-        
-        next();
-    }
+    general = new General(trackingId, options);
 };
 
-module.exports.exceptions = function(trackingId, options) {
-    if (!_.isString(trackingId)) {
-        throw new Error('Google Analytics Tracking ID must be a string');
-    }
+module.exports.track = (req, res, next) => {
+    let session = new Session(req, options);
+    let event = new Event(req, res);
+    let pageview = new Pageview(req);
 
-    options = options || {};
-    options.userId = options.userId || [];
-    options.debug = options.debug || false;
+    let requestBody = new RequestBody(req, general, session)
+        .setEvent(event)
+        .setPageview(pageview);
 
-    const general = new General(trackingId, options);
+    let request = new Request(requestBody, options.debug);
+    request.send();
 
-    return (req, res, next, err) => {
-        let session = new Session(req, options);
-        let event = new Event(req, res);
-        let pageview = new Pageview(req);
-        let exception = new Exception(err);
-
-        let requestBody = new RequestBody(req, general, session)
-            .setEvent(event)
-            .setPageview(pageview)
-            .setException(exception);
-
-        let request = new Request(requestBody, options.debug);
-        request.send();
-
-        next();
-    }
+    next();
 }
 
-// @TODO: Error handling middleware.
+module.exports.exception = (req, res, next, err) => {
+    let session = new Session(req, options);
+    let event = new Event(req, res);
+    let pageview = new Pageview(req);
+    let exception = new Exception(err);
+
+    let requestBody = new RequestBody(req, general, session)
+        .setEvent(event)
+        .setPageview(pageview)
+        .setException(exception);
+
+    let request = new Request(requestBody, options.debug);
+    request.send();
+
+    next();
+};
 
