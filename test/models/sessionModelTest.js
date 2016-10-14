@@ -14,7 +14,7 @@ describe('Session model', function() {
 
     describe('Client ID', function() {
 
-        it('Should allow string values and return a UUID', function(done) {
+        it('Should allow integer and string values and return a UUID', function(done) {
             let req = {
                 user : {
                     id : '1'
@@ -23,6 +23,11 @@ describe('Session model', function() {
 
             session.setClientId(req, ['user', 'id']);
             session.cid.should.equal('1');
+
+            req.user.id = 1;
+
+            session.setClientId(req, ['user', 'id']);
+            session.cid.should.equal(1);
 
             done();
         });
@@ -68,6 +73,11 @@ describe('Session model', function() {
 
             session.setUserId(req, ['user', 'id']);
             session.uid.should.equal('1');
+
+            req.user.id = 1;
+
+            session.setUserId(req, ['user', 'id']);
+            session.uid.should.equal(1);
 
             done();
         });
